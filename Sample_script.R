@@ -8,7 +8,9 @@
 # Add in purpose of this script
 
 # Libraries ----
-
+library(dplyr)
+library(ggplot2)
+library(gridExtra)
 # Functions ----
 # This is a ggplot function for a nice clean theme
 # HINT: use this theme when making your plot later on
@@ -30,9 +32,17 @@ theme.clean <- function(){
 }
 
 # Load data ----
-
+temp_elevation<- read.csv(file.choose())
 # Make a plot showing how soil temperature changes with elevation ----
+(temp.el <- ggplot (temp_elevation, aes(x = Elevation.m, y = Soil.temp.mean)) 
+ +     geom_point(colour = "#8B4513")
+   +     geom_smooth(method = lm, colour = "#8B4513", fill = "#8B4513", alpha = 0.6) 
+   +     labs(x = "Elevation (m)", y = "Mean soil temperature (°C)")
+   +     theme.clean())
+print(temp.el)
 
+str(temp_elevation)
+temp_elevation$Elevation.m <-as.numeric(temp_elevation$Elevation.m)
 # Save your plot in your project directory
 
 # Commit, pull, push!
